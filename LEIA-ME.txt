@@ -1,0 +1,21 @@
+POOLING SURF - ISPX
+===================
+App local, 100% navegador: nada sai deste computador.
+
+Abrir: atalho "Pooling SURF" na area de trabalho (ou abrir.bat).
+Se o atalho sumir: rode criar-atalho.bat.
+
+Botoes:
+- Importar planilha: arquivo de consumo da SURF (.xlsx) com a aba de
+  consumo (colunas dt_mes, marca, no_plano_linha, no_plano_tipo_consumido,
+  no_msisdn_status, gb_total) e a aba "Por plano" com o bloco
+  "QUANTIDADE DE CLIENTES" (Plano A..F por mes).
+- Exportar PPT do cenario: deck de 11 slides com os meses selecionados
+  e o cenario atual do simulador.
+- Restaurar original: volta para a planilha e a tabela que vieram com o app.
+
+Custo SURF e preco MVNO podem ser editados na tabela "Raio-X por plano".
+
+Filtro de MVNOs: desmarque MVNOs (ex.: ISUPER) para simular sem elas.
+As linhas por plano de cada MVNO vem do app Benchmark de MVNOs (dash-mvno).
+Concorrentes: botao "Importar concorrentes" na secao Custo ao MVNO.

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pooling SURF · ISPX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css?v=202609302300">
+<link rel="icon" href="icon.ico">
+</head>
+<body>
+<div class="wrap">
+
+<div class="appbar">
+  <input type="file" id="fileInput" accept=".xlsx,.xlsm,.xls" hidden>
+  <button class="btn" id="btnImport">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+    Importar planilha
+  </button>
+  <button class="btn primary" id="btnPpt">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>
+    Exportar PPT do cenário
+  </button>
+  <button class="btn" id="btnReset" title="Volta para a planilha e a tabela de preços que vieram com o app">Restaurar original</button>
+  <span class="dstatus" id="dstatus"></span>
+</div>
+
+<header class="hd">
+  <div class="hd-row">
+    <div style="display:flex;flex-direction:column;gap:9px">
+      <span class="eyebrow" id="hd-periodo">ISPX · COMPRA DE DADOS SURF</span>
+      <h1>Pooling SURF</h1>
+      <p class="lede">Quanto da franquia comprada da SURF a base usa de verdade, plano a plano, e quanto a ISPX pagaria num pool de dados. O simulador monta a proposta para a negociação.</p>
+    </div>
+    <div class="stamp" id="stamp"></div>
+  </div>
+</header>
+
+<div class="segbar">
+  <div class="seggrp" id="seg-mes"><span class="gl">Meses</span></div>
+  <div class="seggrp" id="seg-mv"></div>
+  <span class="scope" id="scope"></span>
+</div>
+<div class="card mvpanel" id="mvpanel" hidden></div>
+
+<div id="app"></div>
+</div>
+<div id="tip" hidden></div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="vendor/xlsx.full.min.js"></script>
+<script src="vendor/pptxgen.bundle.js"></script>
+<script src="data.js?v=202609302300"></script>
+<script src="comp.js?v=202609302300"></script>
+<script src="surf.js?v=202609302300"></script>
+<script src="proj.js?v=202609302300"></script>
+<script src="grade.js?v=202609302300"></script>
+<script src="app.js?v=202609302300"></script>
+<script src="ppt.js?v=202609302300"></script>
+</body>
+</html>
