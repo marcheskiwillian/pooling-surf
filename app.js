@@ -326,6 +326,7 @@ function render(){
     '<p class="small muted" id="o-margin"></p></div></div></section>';
 
   if(window.PoolGrade) h+=window.PoolGrade.html(M);
+  if(window.PoolNovos) h+=window.PoolNovos.html(M);
   if(window.PoolComp) h+=window.PoolComp.html(M);
 
   h+='<div class="g2e"><section class="card"><div class="sec-hd"><h2>O que compõe o tráfego</h2><p class="muted small">GB por tipo de consumo registrado na SURF.</p></div>'+
@@ -355,6 +356,7 @@ function render(){
   if(window.PoolSurf) window.PoolSurf.bind(M);
   if(window.PoolComp){ window.PoolComp.draw(M); window.PoolComp.bind(M); }
   if(window.PoolGrade) window.PoolGrade.bind();
+  if(window.PoolNovos) window.PoolNovos.bind(M);
   bindTab(); bindSim(M);
   updSim(M);
 }
@@ -466,7 +468,7 @@ function bindSim(M){
   $('s-cap').addEventListener('change',function(){ SIM.cap=this.checked; ls(KEY_SIM,SIM); updSim(M); });
   document.querySelectorAll('#presets [data-p]').forEach(function(b){ b.onclick=function(){ var q=presets(M).filter(function(x){return x.id===b.dataset.p;})[0];
     SIM.mb=q.mb; syncP(SIM); SIM.c=q.c; SIM.g=0; ls(KEY_SIM,SIM); render(); }; });
-  var rt; window.onresize=function(){ clearTimeout(rt); rt=setTimeout(function(){ drawTrend(M); drawSim(M); if(window.PoolComp) window.PoolComp.draw(M); if(window.PoolProj) window.PoolProj.draw(M); },150); };
+  var rt; window.onresize=function(){ clearTimeout(rt); rt=setTimeout(function(){ drawTrend(M); drawSim(M); if(window.PoolComp) window.PoolComp.draw(M); if(window.PoolNovos) window.PoolNovos.draw(M); if(window.PoolProj) window.PoolProj.draw(M); },150); };
 }
 function updSim(M){
   var o=simOut(M,SIM);
@@ -528,7 +530,7 @@ function init(){
   tip=$('tip');
   $('btnImport').onclick=function(){ $('fileInput').click(); };
   $('fileInput').onchange=function(){ if(this.files[0]) importar(this.files[0]); this.value=''; };
-  $('btnReset').onclick=function(){ DATA=ORIG; TAB=clone(TAB0); SIM=clone(SIM0); SAVEDSIM=null; MSEL=null; EXC=[]; [KEY_DATA,KEY_TAB,KEY_SIM,KEY_MES,KEY_EXC].forEach(function(k){ls(k,null);}); if(window.PoolComp) window.PoolComp.reset(); if(window.PoolGrade) window.PoolGrade.reset(); if(window.PoolProj) window.PoolProj.reset(); render(); toast('Voltei para a planilha e a tabela originais.'); };
+  $('btnReset').onclick=function(){ DATA=ORIG; TAB=clone(TAB0); SIM=clone(SIM0); SAVEDSIM=null; MSEL=null; EXC=[]; [KEY_DATA,KEY_TAB,KEY_SIM,KEY_MES,KEY_EXC].forEach(function(k){ls(k,null);}); if(window.PoolComp) window.PoolComp.reset(); if(window.PoolGrade) window.PoolGrade.reset(); if(window.PoolProj) window.PoolProj.reset(); if(window.PoolNovos) window.PoolNovos.reset(); render(); toast('Voltei para a planilha e a tabela originais.'); };
   $('btnPpt').onclick=function(){ if(!DATA){ toast('Importe uma planilha antes.'); return; } var b=this; b.disabled=true; var t=b.lastChild.textContent; b.lastChild.textContent=' Gerando…';
     Promise.resolve().then(function(){ return window.PoolPPT.exportar(); }).then(function(n){ toast('PPT gerado: '+n); }).catch(function(e){ toast('Falha ao gerar o PPT: '+e.message); console.error(e); })
     .then(function(){ b.disabled=false; b.lastChild.textContent=t; }); };

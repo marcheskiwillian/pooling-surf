@@ -76,7 +76,7 @@ function html(M){
 function chart(box,series,opt){
   if(!box) return; var W=box.clientWidth||360, H=210, pl=58, pr=12, pt=14, pb=28, A=window.PoolApp;
   var all=[]; series.forEach(function(s){ s.pts.forEach(function(p){ all.push(p.v); if(p.hi!=null) all.push(p.hi); if(p.lo!=null) all.push(p.lo); }); });
-  var mx=Math.max.apply(null,all)*1.08, mn=opt.zero?0:Math.min.apply(null,all)*0.9;
+  var mx=Math.max.apply(null,all)*1.08, mn=opt.zero?Math.min(0,Math.min.apply(null,all)*1.1):(Math.min.apply(null,all)<0?Math.min.apply(null,all)*1.1:Math.min.apply(null,all)*0.9);
   var step=niceStep(mx-mn,4); mn=Math.floor(mn/step)*step; mx=Math.ceil(mx/step)*step;
   var n=opt.labels.length, x=function(i){return pl+(W-pl-pr)*(i+.5)/n;}, y=function(v){return pt+(H-pt-pb)*(1-(v-mn)/(mx-mn));};
   var s='<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+opt.aria+'">';
@@ -117,5 +117,5 @@ function bind(M){
   draw(M);
 }
 function reset(){ ST={base:'3m',manual:0,gpl:0}; ls(KEY,null); }
-window.PoolProj={html:html,bind:bind,draw:draw,calc:calc,reset:reset,get ST(){return ST;}};
+window.PoolProj={html:html,bind:bind,draw:draw,calc:calc,reset:reset,chart:chart,get ST(){return ST;}};
 })();

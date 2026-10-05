@@ -174,6 +174,16 @@ function build(IMG){
       'Correlação não é causa: quem porta já decidiu ficar. Mesmo valendo metade da diferença, bastam '+(V.boM>0.5?nf(Math.ceil(V.conv*2*10)/10,1):'0')+' conversões/mês.'],.5,3.65,9,1.6,10);
   }
 
+  /* só linhas novas */
+  if(window.PoolNovos){
+    var NV=window.PoolNovos.calc(M), mk=[3,6,12,24].filter(function(k){return k<=NV.H;});
+    s=slide('Cenário só linhas novas','Plano por Consumo só para contratos novos · R$ '+nf(NV.md.p,2)+'/GB · churn '+nf(NV.ch*100,2)+'%/mês · base atual fora da conta');
+    tiles(s,NV.out.map(function(o){ return [Rk(o.end.margem)+'/mês',o.s.nome+': '+nf(o.end.l)+' linhas em '+ml(o.end.m)+' (acum. '+Rk(o.end.acM)+')']; }),1.45,.8);
+    var rowsN=[]; mk.forEach(function(k){ NV.out.forEach(function(o,j){ var x=o.P[k-1];
+      rowsN.push([j===0?ml(x.m)+' (mês '+k+')':'',o.s.nome+' ('+o.s.mv+'×'+nf(o.s.ch)+')',nf(x.l),Rk(x.consumo),Rk(x.fixa),Rk(x.receita),Rk(x.margem),Rk(x.acM)]); }); });
+    table(s,['Mês','Cenário (MVNOs/mês × chips)','Linhas','Fatura SURF consumo','Mesmas linhas na fixa','Receita ISPX','Margem/mês','Margem acum.'],rowsN,{y:2.4,fs:8,rowH:.24});
+  }
+
   /* concorrentes */
   if(IMG && PC && PC.COMP){
     var ssC=PC.series(M), FC=PC.faixas(ssC,PC.CMPV==='grade'?'ISPXG':'ISPX'), riv=ssC.filter(function(x){return x.op!=='ISPX';});
